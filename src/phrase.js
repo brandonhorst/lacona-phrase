@@ -1,3 +1,5 @@
+import inherits from 'inherits'
+
 export function createElement(constructor, props, ...children) {
   return {
     constructor: constructor,
@@ -14,6 +16,8 @@ export class Phrase {}
 
 export function createPhrase(options) {
   const constructor = options.onCreate || function () {}
+
+  inherits(constructor, Phrase)
 
   constructor.translations = options.translations
   constructor.supplements = options.supplements

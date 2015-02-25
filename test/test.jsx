@@ -3,6 +3,7 @@
 
 import * as phrase from '..'
 import {expect} from 'chai'
+import inherits from 'inherits'
 
 describe('lacona-phrase', () => {
   it('provides shorthand constructors', () => {
@@ -17,7 +18,7 @@ describe('lacona-phrase', () => {
   })
 
   it('allows for custom constructors', () => {
-    class Con {}
+    class Con extends phrase.Phrase {}
     const result = {constructor: Con, props: {prop: 'test'}, children: ['child']}
 
     expect(phrase.createFactory(Con)({prop: 'test'}, 'child')).to.eql(result)
@@ -26,7 +27,7 @@ describe('lacona-phrase', () => {
   })
 
   it('createPhrase maps to a class', () => {
-    class Test1 {
+    class Test1 extends phrase.Phrase {
       constructor() {this.test = 0}
       someMethod() {return 1}
       getTranslations() {return 2}
@@ -36,7 +37,7 @@ describe('lacona-phrase', () => {
       getInitialAdditions() {return 6}
     }
 
-    class Test2 {
+    class Test2 extends phrase.Phrase {
       constructor() {this.test = 0}
       someMethod() {return 1}
     }
@@ -57,12 +58,18 @@ describe('lacona-phrase', () => {
     })
 
     const Test4 = function () {this.test = 0}
+    inherits(Test4, phrase.Phrase)
     Test4.prototype.someMethod = function() {return 1}
     Test4.prototype.getTranslations = function() {return 2}
     Test4.prototype.getSupplements = function() {return 3}
     Test4.prototype.getOverrides = function() {return 4}
     Test4.prototype.getDefaultProps = function() {return 5}
     Test4.prototype.getInitialAdditions = function() {return 6}
+
+    expect(new Test1()).to.be.an.instanceof(phrase.Phrase)
+    expect(new Test2()).to.be.an.instanceof(phrase.Phrase)
+    expect(new Test3()).to.be.an.instanceof(phrase.Phrase)
+    expect(new Test4()).to.be.an.instanceof(phrase.Phrase)
 
     expect((new Test1()).test).to.equal(0)
     expect((new Test2()).test).to.equal(0)
