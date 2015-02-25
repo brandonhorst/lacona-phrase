@@ -1,0 +1,40 @@
+{
+  "name": "lacona-phrase",
+  "version": "0.0.1",
+  "description": "Create lacona phrases",
+  "main": "lib/phrase.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha tmp",
+    "build": "babel src --out-dir lib",
+    "validate": "babel test --out-dir tmp && npm run build && npm test",
+    "prepublish": "npm run clean && npm run build",
+    "clean": "rimraf lib tmp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lacona/lacona-phrase.git"
+  },
+  "keywords": [
+    "lacona-phrase",
+    "lacona",
+    "phrase",
+    "create",
+    "initialize",
+    "class"
+  ],
+  "author": "@brandonhorst",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lacona/lacona-phrase/issues"
+  },
+  "homepage": "https://github.com/lacona/lacona-phrase",
+  "devDependencies": {
+    "babel": "^4.5.1",
+    "chai": "^2.1.0",
+    "mocha": "^2.1.0",
+    "rimraf": "^2.2.8"
+  }
+}
