@@ -2,7 +2,7 @@ import inherits from 'inherits'
 
 export function createElement(constructor, props, ...children) {
   return {
-    constructor: constructor,
+    Constructor: constructor,
     props: props,
     children: children
   }
@@ -15,22 +15,22 @@ export function createFactory(constructor) {
 export class Phrase {}
 
 export function createPhrase(options) {
-  const constructor = options.onCreate || function () {}
+  const Constructor = options.onCreate || function () {}
 
-  inherits(constructor, Phrase)
+  inherits(Constructor, Phrase)
 
-  constructor.translations = options.translations
-  constructor.supplements = options.supplements
-  constructor.overrides = options.overrides
-  constructor.defaultProps = options.defaultProps
-  constructor.additions = options.initialAdditions
+  Constructor.translations = options.translations
+  Constructor.supplements = options.supplements
+  Constructor.overrides = options.overrides
+  Constructor.defaultProps = options.defaultProps
+  Constructor.additions = options.initialAdditions
 
   for (let key in options) {
     if (typeof options[key] === 'function') {
-      constructor.prototype[key] = options[key]
+      Constructor.prototype[key] = options[key]
     }
   }
-  return constructor
+  return Constructor
 }
 
 export const choice = createFactory('choice')

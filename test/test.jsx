@@ -8,7 +8,7 @@ import inherits from 'inherits'
 describe('lacona-phrase', () => {
   it('provides shorthand constructors', () => {
     ;['choice', 'content', 'literal', 'repeat', 'separator', 'sequence'].forEach(Con => {
-      const result = {constructor: Con, props: {prop: 'test'}, children: ['child']}
+      const result = {Constructor: Con, props: {prop: 'test'}, children: ['child']}
 
       expect(phrase.createFactory(Con)({prop: 'test'}, 'child')).to.eql(result)
       expect(phrase.createElement(Con, {prop: 'test'}, 'child')).to.eql(result)
@@ -19,7 +19,7 @@ describe('lacona-phrase', () => {
 
   it('allows for custom constructors', () => {
     class Con extends phrase.Phrase {}
-    const result = {constructor: Con, props: {prop: 'test'}, children: ['child']}
+    const result = {Constructor: Con, props: {prop: 'test'}, children: ['child']}
 
     expect(phrase.createFactory(Con)({prop: 'test'}, 'child')).to.eql(result)
     expect(phrase.createElement(Con, {prop: 'test'}, 'child')).to.eql(result)
