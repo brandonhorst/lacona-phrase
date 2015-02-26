@@ -1,6 +1,11 @@
 import inherits from 'inherits'
 
+let uniqueId = 0
+
 export function createElement(constructor, props, ...children) {
+  if (props && props.id == null) {
+    props.id = '_temp' + uniqueId++
+  }
   return {
     Constructor: constructor,
     props: props,

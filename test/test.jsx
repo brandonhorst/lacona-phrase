@@ -8,22 +8,31 @@ import inherits from 'inherits'
 describe('lacona-phrase', () => {
   it('provides shorthand constructors', () => {
     ;['choice', 'content', 'literal', 'repeat', 'separator', 'sequence'].forEach(Con => {
-      const result = {Constructor: Con, props: {prop: 'test'}, children: ['child']}
+      const result = {Constructor: Con, props: {prop: 'test', id: 'mine'}, children: ['child']}
 
-      expect(phrase.createFactory(Con)({prop: 'test'}, 'child')).to.eql(result)
-      expect(phrase.createElement(Con, {prop: 'test'}, 'child')).to.eql(result)
-      expect(<Con prop='test'>child</Con>).to.eql(result)
-      expect(phrase[Con]({prop: 'test'}, 'child')).to.eql(result)
+      expect(phrase.createFactory(Con)({prop: 'test', id: 'mine'}, 'child')).to.eql(result)
+      expect(phrase.createElement(Con, {prop: 'test', id: 'mine'}, 'child')).to.eql(result)
+      expect(<Con prop='test' id='mine'>child</Con>).to.eql(result)
+      expect(phrase[Con]({prop: 'test', id: 'mine'}, 'child')).to.eql(result)
     })
   })
 
   it('allows for custom constructors', () => {
     class Con extends phrase.Phrase {}
-    const result = {Constructor: Con, props: {prop: 'test'}, children: ['child']}
+    const result = {Constructor: Con, props: {prop: 'test', id: 'mine'}, children: ['child']}
 
-    expect(phrase.createFactory(Con)({prop: 'test'}, 'child')).to.eql(result)
-    expect(phrase.createElement(Con, {prop: 'test'}, 'child')).to.eql(result)
-    expect(<Con prop='test'>child</Con>).to.eql(result)
+    expect(phrase.createFactory(Con)({prop: 'test', id: 'mine'}, 'child')).to.eql(result)
+    expect(phrase.createElement(Con, {prop: 'test', id: 'mine'}, 'child')).to.eql(result)
+    expect(<Con prop='test' id='mine'>child</Con>).to.eql(result)
+  })
+
+  it('provides a default id if none is provided', () => {
+    class Con extends phrase.Phrase {}
+    const result = {Constructor: Con, props: {prop: 'test', id: 'mine'}, children: ['child']}
+
+    expect(phrase.createFactory(Con)({prop: 'test'}, 'child').props.id).to.not.be.undefined
+    expect(phrase.createElement(Con, {prop: 'test'}, 'child').props.id).to.not.be.undefined
+    expect((<Con prop='test'>child</Con>).props.id).to.not.be.undefined
   })
 
   it('createPhrase maps to a class', () => {
