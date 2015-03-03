@@ -4,11 +4,12 @@
 import * as phrase from '..'
 import {expect} from 'chai'
 import inherits from 'inherits'
+import {version} from '../package'
 
 describe('lacona-phrase', () => {
   it('provides shorthand constructors', () => {
     ;['choice', 'content', 'literal', 'repeat', 'separator', 'sequence'].forEach(Con => {
-      const result = {Constructor: Con, props: {prop: 'test', id: 'mine'}, children: ['child']}
+      const result = {Constructor: Con, props: {prop: 'test', id: 'mine'}, children: ['child'], version: version}
 
       expect(phrase.createFactory(Con)({prop: 'test', id: 'mine'}, 'child')).to.eql(result)
       expect(phrase.createElement(Con, {prop: 'test', id: 'mine'}, 'child')).to.eql(result)
@@ -17,9 +18,13 @@ describe('lacona-phrase', () => {
     })
   })
 
+  it('sets the version of the data structure', () => {
+    expect(phrase.createElement('literal').version).to.equal(version)
+  })
+
   it('allows for custom constructors', () => {
     class Con extends phrase.Phrase {}
-    const result = {Constructor: Con, props: {prop: 'test', id: 'mine'}, children: ['child']}
+    const result = {Constructor: Con, props: {prop: 'test', id: 'mine'}, children: ['child'], version: version}
 
     expect(phrase.createFactory(Con)({prop: 'test', id: 'mine'}, 'child')).to.eql(result)
     expect(phrase.createElement(Con, {prop: 'test', id: 'mine'}, 'child')).to.eql(result)

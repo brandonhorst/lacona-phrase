@@ -7,9 +7,10 @@
     "test": "test"
   },
   "scripts": {
+    "pretest": "babel test --out-dir tmp ",
     "test": "mocha tmp",
     "build": "babel src --out-dir lib",
-    "validate": "babel test --out-dir tmp && npm run build && npm test",
+    "validate": "npm run build && npm test",
     "prepublish": "npm run clean && npm run build",
     "clean": "rimraf lib tmp"
   },
@@ -32,7 +33,7 @@
   },
   "homepage": "https://github.com/lacona/lacona-phrase",
   "devDependencies": {
-    "babel": "^4.5.1",
+    "babel": "^4.6.6",
     "chai": "^2.1.0",
     "mocha": "^2.1.0",
     "rimraf": "^2.2.8"

@@ -1,4 +1,5 @@
 import inherits from 'inherits'
+import {version} from '../package'
 
 let uniqueId = 0
 
@@ -9,7 +10,8 @@ export function createElement(constructor, props, ...children) {
   return {
     Constructor: constructor,
     props: props,
-    children: children
+    children: children,
+    version: version
   }
 }
 
