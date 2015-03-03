@@ -19,7 +19,7 @@ export default class MyPhrase extends Phrase {
   constructor() {
     // no need to call super()
   }
-  getDefaultProps() {
+  static get defaultProps() {
     return {a: 'test'}
   }
   describe() {
@@ -37,9 +37,7 @@ module.exports = createPhrase({
   onCreate: function() {
     // initialize phrase
   },
-  getDefaultProps: function() {
-    return {a: 'test'}
-  },
+  defaultProps: {a: 'test'},
   describe: function() {
     return // ...
   }
@@ -111,15 +109,15 @@ The pesky thing about *language* is that there are lots of them. A single phrase
 /** @jsx createElement */
 import {createElement, Phrase} from 'lacona-phrase'
 class MyPhrase extends Phrase {
-  static getTranslations () {
+  static get translations () {
     return [{
       langs: ['en'],
-      describe: function() {
+      describe() {
         return <literal text='hello' />
       }
     }, {
       langs: ['zh']
-      describe: function() {
+      describe() {
         return <literal text='你好' />
       }
     }]
@@ -134,12 +132,12 @@ var phrase = require('lacona-phrase')
 
 module.exports = phrase.createPhrase({
   translations: [{
-    langs: ['en_US'],
+    langs: ['en'],
     describe: function() {
       return phrase.literal({text: 'hello'})
     }
   }, {
-    langs: ['zh-Hans']
+    langs: ['zh']
     describe: function() {
       return phrase.literal({text: '你好'})
     }
@@ -154,13 +152,13 @@ A `Phrase` is ultimately just a class - it can have any methods or properties. H
 
 ### Static Properties
 
-Much of a `Phrase`'s behavior is governed by Static Properties, which are specific to the `Phrase`, not to any particular `Element`. When using `createPhrase`, these are specified directly as objects. However, because ES6 does not support static properties, these cannot be expressed using ES6 class syntax alone. They can set directly as properties on the constructor. For convenience, static methods are provided for each property. These are called once before the `Phrase` is instantiated and should only return a single value - they should not contain logic.
+Some of a `Phrase`'s behavior is governed by Static Properties, which are specific to the `Phrase`, not to any particular `Element`. When using `createPhrase`, these are specified directly as objects. However, because ES6 does not directly support static properties, these cannot be expressed using ES6 class syntax alone. They can set be set as static getters, or directly as properties on the constructor.
 
-* `Phrase.defaultProps` or `getDefaultProps()` or `defaultProps`
-* `Phrase.supplements` or `getSupplements()` or `supplements`
-* `Phrase.overrides` or `getOverrides()` or `overrides`
-* `Phrase.translations` or `getTranslations()` or `translations`
-* `Phrase.additions` or `getInitialAdditions()` or `initialAdditions`
+* `defaultProps`
+* `supplements`
+* `overrides`
+* `translations`
+* `initialAdditions`
 
 #### Using ES6
 
@@ -170,10 +168,10 @@ The two strategies below are precisely equivalent
 import {Phrase} from 'lacona-phrase'
 
 class MyPhrase extends Phrase {
-  static getDefaultProps() {
+  static get defaultProps() {
     return {myProp: 'test'}
   }
-  static getInitialAdditions() {
+  static get initialAdditions() {
     return {config: []}
   }
   describe() {
@@ -191,7 +189,7 @@ class MyPhrase extends Phrase {
   }
 }
 MyPhrase.defaultProps = {myProp: 'test'}
-MyPhrase.additions = {config: []}
+MyPhrase.initialAdditions = {config: []}
 ```
 
 #### Using ES5
@@ -200,7 +198,7 @@ var phrase = require('lacona-phrase')
 
 module.exports = phrase.createPhrase({
   defaultProps: {myProp: 'test'},
-  initialAdditions: {config: []}
+  initialAdditions: {config: []},
   describe: function () {
     return // ...
   }

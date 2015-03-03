@@ -30,7 +30,7 @@ export function createPhrase(options) {
   Constructor.supplements = options.supplements
   Constructor.overrides = options.overrides
   Constructor.defaultProps = options.defaultProps
-  Constructor.additions = options.initialAdditions
+  Constructor.initialAdditions = options.initialAdditions
 
   for (let key in options) {
     if (typeof options[key] === 'function') {

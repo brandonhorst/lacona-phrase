@@ -44,11 +44,11 @@ describe('lacona-phrase', () => {
     class Test1 extends phrase.Phrase {
       constructor() {this.test = 0}
       someMethod() {return 1}
-      getTranslations() {return 2}
-      getSupplements() {return 3}
-      getOverrides() {return 4}
-      getDefaultProps() {return 5}
-      getInitialAdditions() {return 6}
+      static get translations() {return 2}
+      static get supplements() {return 3}
+      static get overrides() {return 4}
+      static get defaultProps() {return 5}
+      static get initialAdditions() {return 6}
     }
 
     class Test2 extends phrase.Phrase {
@@ -59,7 +59,7 @@ describe('lacona-phrase', () => {
     Test2.supplements = 3
     Test2.overrides = 4
     Test2.defaultProps = 5
-    Test2.additions = 6
+    Test2.initialAdditions = 6
 
     const Test3 = phrase.createPhrase({
       onCreate: function () {this.test = 0},
@@ -71,53 +71,15 @@ describe('lacona-phrase', () => {
       initialAdditions: 6
     })
 
-    const Test4 = function () {this.test = 0}
-    inherits(Test4, phrase.Phrase)
-    Test4.prototype.someMethod = function() {return 1}
-    Test4.prototype.getTranslations = function() {return 2}
-    Test4.prototype.getSupplements = function() {return 3}
-    Test4.prototype.getOverrides = function() {return 4}
-    Test4.prototype.getDefaultProps = function() {return 5}
-    Test4.prototype.getInitialAdditions = function() {return 6}
-
-    expect(new Test1()).to.be.an.instanceof(phrase.Phrase)
-    expect(new Test2()).to.be.an.instanceof(phrase.Phrase)
-    expect(new Test3()).to.be.an.instanceof(phrase.Phrase)
-    expect(new Test4()).to.be.an.instanceof(phrase.Phrase)
-
-    expect((new Test1()).test).to.equal(0)
-    expect((new Test2()).test).to.equal(0)
-    expect((new Test3()).test).to.equal(0)
-    expect((new Test4()).test).to.equal(0)
-
-    expect((new Test1()).someMethod()).to.equal(1)
-    expect((new Test2()).someMethod()).to.equal(1)
-    expect((new Test3()).someMethod()).to.equal(1)
-    expect((new Test4()).someMethod()).to.equal(1)
-
-    expect(Test1.prototype.getTranslations()).to.equal(2)
-    expect(Test2.translations).to.equal(2)
-    expect(Test3.translations).to.equal(2)
-    expect(Test4.prototype.getTranslations()).to.equal(2)
-
-    expect(Test1.prototype.getSupplements()).to.equal(3)
-    expect(Test2.supplements).to.equal(3)
-    expect(Test3.supplements).to.equal(3)
-    expect(Test4.prototype.getSupplements()).to.equal(3)
-
-    expect(Test1.prototype.getOverrides()).to.equal(4)
-    expect(Test2.overrides).to.equal(4)
-    expect(Test3.overrides).to.equal(4)
-    expect(Test4.prototype.getOverrides()).to.equal(4)
-
-    expect(Test1.prototype.getDefaultProps()).to.equal(5)
-    expect(Test2.defaultProps).to.equal(5)
-    expect(Test3.defaultProps).to.equal(5)
-    expect(Test4.prototype.getDefaultProps()).to.equal(5)
-
-    expect(Test1.prototype.getInitialAdditions()).to.equal(6)
-    expect(Test2.additions).to.equal(6)
-    expect(Test3.additions).to.equal(6)
-    expect(Test4.prototype.getInitialAdditions()).to.equal(6)
+    ;[Test1, Test2, Test3].forEach(Phrase => {
+      expect(new Phrase()).to.be.an.instanceof(phrase.Phrase)
+      expect((new Phrase()).test).to.equal(0)
+      expect((new Phrase()).someMethod()).to.equal(1)
+      expect(Phrase.translations).to.equal(2)
+      expect(Phrase.supplements).to.equal(3)
+      expect(Phrase.overrides).to.equal(4)
+      expect(Phrase.defaultProps).to.equal(5)
+      expect(Phrase.initialAdditions).to.equal(6)
+    })
   })
 })
