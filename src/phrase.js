@@ -4,8 +4,11 @@ import {version} from '../package'
 let uniqueId = 0
 
 export function createElement(constructor, props, ...children) {
-  if (props && props.id == null) {
-    props.id = '_temp' + uniqueId++
+  if (!props) {
+    props = {id: `_temp${uniqueId++}`}
+  }
+  if (props.id == null) {
+    props.id = `_temp${uniqueId++}`
   }
   return {
     Constructor: constructor,

@@ -37,7 +37,10 @@ describe('lacona-phrase', () => {
 
     expect(phrase.createFactory(Con)({prop: 'test'}, 'child').props.id).to.not.be.undefined
     expect(phrase.createElement(Con, {prop: 'test'}, 'child').props.id).to.not.be.undefined
+    expect(phrase.createElement(Con, null, 'child').props.id).to.not.be.undefined
+    expect(phrase.createElement(Con, null).props.id).to.not.be.undefined
     expect((<Con prop='test'>child</Con>).props.id).to.not.be.undefined
+    expect((<Con />).props.id).to.not.be.undefined
   })
 
   it('createPhrase maps to a class', () => {
