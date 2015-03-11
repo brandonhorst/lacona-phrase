@@ -22,6 +22,15 @@ describe('lacona-phrase', () => {
     expect(phrase.createElement('literal').version).to.equal(version)
   })
 
+  it('has setAdditions', () => {
+    class Con extends phrase.Phrase {}
+
+    expect(Con.additionsChanged).to.not.be.false
+    Con.setAdditions({x: 1})
+    expect(Con.additionsChanged).to.be.true
+    expect(Con.additions).to.eql({x: 1})
+  })
+
   it('allows for custom constructors', () => {
     class Con extends phrase.Phrase {}
     const result = {Constructor: Con, props: {prop: 'test', id: 'mine'}, children: ['child'], version: version}

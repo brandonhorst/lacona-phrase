@@ -3,15 +3,16 @@ import {version} from '../package'
 
 let uniqueId = 0
 
-export function createElement(constructor, props, ...children) {
+export function createElement(Constructor, props, ...children) {
   if (!props) {
     props = {id: `_temp${uniqueId++}`}
   }
   if (props.id == null) {
     props.id = `_temp${uniqueId++}`
   }
+
   return {
-    Constructor: constructor,
+    Constructor: Constructor,
     props: props,
     children: children,
     version: version
@@ -22,7 +23,12 @@ export function createFactory(constructor) {
   return createElement.bind(null, constructor)
 }
 
-export class Phrase {}
+export class Phrase {
+  static setAdditions(newAdditions) {
+    this.additions = newAdditions
+    this.additionsChanged = true
+  }
+}
 
 export function createPhrase(options) {
   const Constructor = options.onCreate || function () {}
