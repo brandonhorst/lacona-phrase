@@ -23,17 +23,21 @@ export function createFactory(constructor) {
   return createElement.bind(null, constructor)
 }
 
-export class Phrase {
-  static setAdditions(newAdditions) {
-    this.additions = newAdditions
-    this.additionsChanged = true
-  }
+function setAdditions(newAdditions) {
+  this.additions = newAdditions
+  this.additionsChanged = true
 }
+
+export class Phrase {}
+Phrase.setAdditions = setAdditions
 
 export function createPhrase(options) {
   const Constructor = options.onCreate || function () {}
 
   inherits(Constructor, Phrase)
+
+  //statics are not inherited
+  Constructor.setAdditions = setAdditions
 
   Constructor.translations = options.translations
   Constructor.supplements = options.supplements

@@ -23,12 +23,15 @@ describe('lacona-phrase', () => {
   })
 
   it('has setAdditions', () => {
-    class Con extends phrase.Phrase {}
+    class Con1 extends phrase.Phrase {}
+    const Con2 = phrase.createPhrase({})
 
-    expect(Con.additionsChanged).to.not.be.false
-    Con.setAdditions({x: 1})
-    expect(Con.additionsChanged).to.be.true
-    expect(Con.additions).to.eql({x: 1})
+    ;[Con1, Con2].forEach(Con => {
+      expect(Con.additionsChanged).to.not.be.false
+      Con.setAdditions({x: 1})
+      expect(Con.additionsChanged).to.be.true
+      expect(Con.additions).to.eql({x: 1})
+    })
   })
 
   it('allows for custom constructors', () => {
