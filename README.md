@@ -158,7 +158,6 @@ Some of a `Phrase`'s behavior is governed by Static Properties, which are specif
 * `supplements`
 * `overrides`
 * `translations`
-* `initialAdditions`
 
 #### Using ES6
 
@@ -171,8 +170,8 @@ class MyPhrase extends Phrase {
   static get defaultProps() {
     return {myProp: 'test'}
   }
-  static get initialAdditions() {
-    return {config: []}
+  static get supplements() {
+    return []
   }
   describe() {
     return // ...
@@ -189,7 +188,7 @@ class MyPhrase extends Phrase {
   }
 }
 MyPhrase.defaultProps = {myProp: 'test'}
-MyPhrase.initialAdditions = {config: []}
+MyPhrase.supplements = []
 ```
 
 #### Using ES5
@@ -198,7 +197,7 @@ var phrase = require('lacona-phrase')
 
 module.exports = phrase.createPhrase({
   defaultProps: {myProp: 'test'},
-  initialAdditions: {config: []},
+  supplements: [],
   describe: function () {
     return // ...
   }

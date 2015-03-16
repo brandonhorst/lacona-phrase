@@ -15,27 +15,17 @@ export function createFactory(constructor) {
   return createElement.bind(null, constructor)
 }
 
-function setAdditions(newAdditions) {
-  this.additions = newAdditions
-  this.additionsChanged = true
-}
-
 export class Phrase {}
-Phrase.setAdditions = setAdditions
 
 export function createPhrase(options) {
   const Constructor = options.onCreate || function () {}
 
   inherits(Constructor, Phrase)
 
-  //statics are not inherited
-  Constructor.setAdditions = setAdditions
-
   Constructor.translations = options.translations
   Constructor.supplements = options.supplements
   Constructor.overrides = options.overrides
   Constructor.defaultProps = options.defaultProps
-  Constructor.initialAdditions = options.initialAdditions
 
   for (let key in options) {
     if (typeof options[key] === 'function') {
