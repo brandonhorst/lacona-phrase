@@ -43,18 +43,6 @@ describe('lacona-phrase', () => {
     expect(<Con prop='test' id='mine'>child</Con>).to.eql(result)
   })
 
-  it('provides a default id if none is provided', () => {
-    class Con extends phrase.Phrase {}
-    const result = {Constructor: Con, props: {prop: 'test', id: 'mine'}, children: ['child']}
-
-    expect(phrase.createFactory(Con)({prop: 'test'}, 'child').props.id).to.not.be.undefined
-    expect(phrase.createElement(Con, {prop: 'test'}, 'child').props.id).to.not.be.undefined
-    expect(phrase.createElement(Con, null, 'child').props.id).to.not.be.undefined
-    expect(phrase.createElement(Con, null).props.id).to.not.be.undefined
-    expect((<Con prop='test'>child</Con>).props.id).to.not.be.undefined
-    expect((<Con />).props.id).to.not.be.undefined
-  })
-
   it('createPhrase maps to a class', () => {
     class Test1 extends phrase.Phrase {
       constructor() {this.test = 0}
