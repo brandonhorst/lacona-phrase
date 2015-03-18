@@ -8,7 +8,7 @@ import {version} from '../package'
 
 describe('lacona-phrase', () => {
   it('provides shorthand constructors', () => {
-    ;['choice', 'content', 'literal', 'repeat', 'separator', 'sequence'].forEach(Con => {
+    ;['choice', 'content', 'literal', 'separator', 'sequence'].forEach(Con => {
       const result = {Constructor: Con, props: {prop: 'test', id: 'mine'}, children: ['child'], version: version}
 
       expect(phrase.createFactory(Con)({prop: 'test', id: 'mine'}, 'child')).to.eql(result)
@@ -39,6 +39,7 @@ describe('lacona-phrase', () => {
       static get supplements() {return 3}
       static get overrides() {return 4}
       static get defaultProps() {return 5}
+      static get initialState() {return 6}
     }
 
     class Test2 extends phrase.Phrase {
@@ -49,6 +50,7 @@ describe('lacona-phrase', () => {
     Test2.supplements = 3
     Test2.overrides = 4
     Test2.defaultProps = 5
+    Test2.initialState = 6
 
     const Test3 = phrase.createPhrase({
       onCreate: function () {this.test = 0},
@@ -56,7 +58,8 @@ describe('lacona-phrase', () => {
       translations: 2,
       supplements: 3,
       overrides: 4,
-      defaultProps: 5
+      defaultProps: 5,
+      initialState: 6
     })
 
     ;[Test1, Test2, Test3].forEach(Phrase => {
@@ -67,6 +70,7 @@ describe('lacona-phrase', () => {
       expect(Phrase.supplements).to.equal(3)
       expect(Phrase.overrides).to.equal(4)
       expect(Phrase.defaultProps).to.equal(5)
+      expect(Phrase.initialState).to.equal(6)
     })
   })
 })

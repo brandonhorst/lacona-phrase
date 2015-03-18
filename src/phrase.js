@@ -26,6 +26,7 @@ export function createPhrase(options) {
   Constructor.supplements = options.supplements
   Constructor.overrides = options.overrides
   Constructor.defaultProps = options.defaultProps
+  Constructor.initialState = options.initialState
 
   for (let key in options) {
     if (typeof options[key] === 'function') {
@@ -38,7 +39,6 @@ export function createPhrase(options) {
 export const choice = createFactory('choice')
 export const content = createFactory('content')
 export const literal = createFactory('literal')
-export const repeat = createFactory('repeat')
 export const separator = createFactory('separator')
 export const sequence = createFactory('sequence')
 export const value = createFactory('value')
