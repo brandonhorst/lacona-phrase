@@ -33,10 +33,10 @@
   },
   "homepage": "https://github.com/lacona/lacona-phrase",
   "devDependencies": {
-    "babel": "^4.6.6",
-    "chai": "^2.1.0",
-    "mocha": "^2.1.0",
-    "rimraf": "^2.2.8"
+    "babel": "^4.7.16",
+    "chai": "^2.2.0",
+    "mocha": "^2.2.1",
+    "rimraf": "^2.3.2"
   },
   "dependencies": {
     "inherits": "^2.0.1"

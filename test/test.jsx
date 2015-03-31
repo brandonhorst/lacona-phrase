@@ -33,44 +33,42 @@ describe('lacona-phrase', () => {
 
   it('createPhrase maps to a class', () => {
     class Test1 extends phrase.Phrase {
-      constructor() {this.test = 0}
+      create() {this.test = 0}
       someMethod() {return 1}
       static get translations() {return 2}
-      static get supplements() {return 3}
-      static get overrides() {return 4}
-      static get defaultProps() {return 5}
-      static get initialState() {return 6}
+      static get extensions() {return 3}
+      static get defaultProps() {return 4}
+      static get sources() {return 5}
     }
 
     class Test2 extends phrase.Phrase {
-      constructor() {this.test = 0}
+      create() {this.test = 0}
       someMethod() {return 1}
     }
     Test2.translations = 2
-    Test2.supplements = 3
-    Test2.overrides = 4
-    Test2.defaultProps = 5
-    Test2.initialState = 6
+    Test2.extensions = 3
+    Test2.defaultProps = 4
+    Test2.sources = 5
 
     const Test3 = phrase.createPhrase({
-      onCreate: function () {this.test = 0},
-      someMethod: function () {return 1},
+      create() {this.test = 0},
+      someMethod() {return 1},
       translations: 2,
-      supplements: 3,
-      overrides: 4,
-      defaultProps: 5,
-      initialState: 6
+      extensions: 3,
+      defaultProps: 4,
+      sources: 5
     })
 
     ;[Test1, Test2, Test3].forEach(Phrase => {
-      expect(new Phrase()).to.be.an.instanceof(phrase.Phrase)
-      expect((new Phrase()).test).to.equal(0)
-      expect((new Phrase()).someMethod()).to.equal(1)
+      const newPhrase = new Phrase()
+      newPhrase.create()
+      expect(newPhrase).to.be.an.instanceof(phrase.Phrase)
+      expect(newPhrase.test).to.equal(0)
+      expect(newPhrase.someMethod()).to.equal(1)
       expect(Phrase.translations).to.equal(2)
-      expect(Phrase.supplements).to.equal(3)
-      expect(Phrase.overrides).to.equal(4)
-      expect(Phrase.defaultProps).to.equal(5)
-      expect(Phrase.initialState).to.equal(6)
+      expect(Phrase.extensions).to.equal(3)
+      expect(Phrase.defaultProps).to.equal(4)
+      expect(Phrase.sources).to.equal(5)
     })
   })
 })

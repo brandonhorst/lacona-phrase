@@ -2,7 +2,6 @@ import inherits from 'inherits'
 import {version} from '../package'
 
 export function createElement(Constructor, props, ...children) {
-
   return {
     Constructor: Constructor,
     props: props,
@@ -17,16 +16,17 @@ export function createFactory(constructor) {
 
 export class Phrase {}
 
+export class Source {}
+
 export function createPhrase(options) {
-  const Constructor = options.onCreate || function () {}
+  const Constructor = function () {}
 
   inherits(Constructor, Phrase)
 
   Constructor.translations = options.translations
-  Constructor.supplements = options.supplements
-  Constructor.overrides = options.overrides
+  Constructor.extensions = options.extensions
   Constructor.defaultProps = options.defaultProps
-  Constructor.initialState = options.initialState
+  Constructor.sources = options.sources
 
   for (let key in options) {
     if (typeof options[key] === 'function') {
