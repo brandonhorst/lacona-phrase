@@ -10,35 +10,12 @@ export function createElement(Constructor, props, ...children) {
   }
 }
 
-export function createFactory(constructor) {
-  return createElement.bind(null, constructor)
-}
-
-export class Phrase {}
-
-export class Source {}
-
-export function createPhrase(options) {
-  const Constructor = function () {}
-
-  inherits(Constructor, Phrase)
-
-  Constructor.translations = options.translations
-  Constructor.extensions = options.extensions
-  Constructor.defaultProps = options.defaultProps
-  Constructor.sources = options.sources
-
-  for (let key in options) {
-    if (typeof options[key] === 'function') {
-      Constructor.prototype[key] = options[key]
-    }
+class LaconaElementInstance {
+  constructor (props) {
+    this.props = props
   }
-  return Constructor
 }
 
-export const choice = createFactory('choice')
-export const content = createFactory('content')
-export const literal = createFactory('literal')
-export const separator = createFactory('separator')
-export const sequence = createFactory('sequence')
-export const value = createFactory('value')
+export class Phrase extends LaconaElementInstance { }
+
+export class Source extends LaconaElementInstance { }
