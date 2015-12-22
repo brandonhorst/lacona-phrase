@@ -11,8 +11,10 @@ export function createElement(Constructor, props, ...children) {
 }
 
 class LaconaElementInstance {
-  constructor (props) {
-    this.props = props
+  constructor (obj) {
+    for (let key in obj) {
+      this[key] = obj[key]
+    }
   }
 }
 

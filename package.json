@@ -2,7 +2,7 @@
   "name": "lacona-phrase",
   "version": "0.8.0",
   "description": "Create lacona phrases",
-  "main": "lib/phrase.js",
+  "main": "lib/index.js",
   "directories": {
     "test": "test"
   },

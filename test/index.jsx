@@ -23,8 +23,10 @@ describe('lacona-phrase', () => {
   it('allows for custom constructors', () => {
     class Con extends phrase.Phrase { }
 
-    const con = new Con({key: 'val'})
+    const con = new Con({props: {key: 'val'}, source: 3, test: 'test'})
 
     expect(con.props).to.eql({key: 'val'})
+    expect(con.source).to.equal(3)
+    expect(con.test).to.equal('test')
   })
 })
